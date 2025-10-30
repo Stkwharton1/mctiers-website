@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MCTIERS — Tiers</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img src="logo.png" alt="MCTIERS logo" class="logo" />
+        <span class="brand-text">MCTIERS</span>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="tiers.html" class="nav-link">Tiers</a>
+        <a href="https://mctiers.com/rankings/overall" class="nav-link" target="_blank" rel="noopener">Rankings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container">
+      <h1 class="section-title">Server Tiers</h1>
+      <p class="muted">Choose the right experience — these are community-created rank tiers and their perks (replace with your exact content).</p>
+
+      <div class="grid tiers-grid">
+        <article class="tier-card">
+          <h3 class="tier-title">Bronze</h3>
+          <p class="tier-desc">Ideal for beginners — balanced PvP with standard rules.</p>
+          <ul class="tier-features">
+            <li>Basic matchmaking</li>
+            <li>Standard gear</li>
+            <li>Community queue</li>
+            <li>LT5-LT3 Tiered</li>
+          </ul>
+        </article>
+
+        <article class="tier-card popular">
+          <h3 class="tier-title">Silver</h3>
+          <p class="tier-desc">For regular players — more features and custom arenas.</p>
+          <ul class="tier-features">
+            <li>Custom arenas</li>
+            <li>Ranked matchmaking</li>
+            <li>Priority queue</li>
+            <li>Private Practice Server</li>
+            <li>HT3-HT2</li>
+          </ul>
+        </article>
+
+        <article class="tier-card">
+          <h3 class="tier-title">Gold</h3>
+          <p class="tier-desc">Competitive tier — tournaments and advanced stats.</p>
+          <ul class="tier-features">
+            <li>Tournaments</li>
+            <li>Detailed stats</li>
+            <li>More Aura</li>
+            <li>Custom Rank In Game</li>
+            <li>LT1-HT1</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="muted small">Edit the tier names and features to match your server's actual ranks and perks. This is placeholder content for now.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year2"></span> LightTiers — Minecraft PvP community</small>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year2').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

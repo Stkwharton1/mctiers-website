@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MCTIERS — Players & Tiers</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img src="logo.png" alt="MCTIERS logo" class="logo" />
+        <span class="brand-text">MCTIERS</span>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="tiers.html" class="nav-link">Tiers</a>
+        <a href="players.html" class="nav-link">Rankings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container">
+      <h1 class="section-title">Players & Tiers — Your List</h1>
+      <p class="muted">Manage your community's players and assign tiers. Use the tier mapping below to automatically assign points based on tier.</p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;margin:0.75rem 0;">
+        <input id="searchInput" type="search" placeholder="Search by name or points…" style="flex:1;min-width:180px;padding:0.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--accent-text)">
+        <select id="tierFilter" aria-label="Filter by tier" style="padding:0.5rem;border-radius:8px;background:transparent;color:var(--accent-text);border:1px solid rgba(255,255,255,0.03)">
+          <option value="">All tiers</option>
+        </select>
+
+        <label class="btn" for="importFile" style="cursor:pointer">Import CSV</label>
+        <input id="importFile" type="file" accept=".csv,application/json" style="display:none" />
+        <button id="exportBtn" class="btn">Export JSON</button>
+
+        <button id="clearBtn" class="btn" title="Clear local list (cannot be undone)">Clear</button>
+      </div>
+
+      <!-- Tier -> points mapping UI -->
+      <section style="margin-top:0.75rem;padding:0.75rem;border-radius:10px;background:var(--card);border:1px solid rgba(255,255,255,0.03)">
+        <h3 style="margin:0 0 0.5rem">Tier points mapping</h3>
+        <p class="muted small" style="margin:0 0 0.6rem">Configure how many points each tier grants. Use "Apply to all" to overwrite every player's points, or "Apply to empty" to only assign points to players that have 0 / blank points.</p>
+
+        <div id="mappingGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem;margin-bottom:0.6rem"></div>
+
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap">
+          <button id="applyMappingBtn" class="btn">Apply to all players</button>
+          <button id="applyMappingIfEmptyBtn" class="btn">Apply to players with empty points</button>
+          <button id="resetMappingBtn" class="btn">Reset default mapping</button>
+          <button id="saveMappingBtn" class="btn">Save mapping</button>
+        </div>
+      </section>
+
+      <div style="margin-top:1rem;">
+        <div style="overflow:auto;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:var(--card);padding:0.5rem;">
+          <table id="playersTable" style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr style="text-align:left">
+                <th style="padding:0.6rem 0.8rem;cursor:pointer" data-sort="rank">Rank ⤍</th>
+                <th style="padding:0.6rem 0.8rem">Player</th>
+                <th style="padding:0.6rem 0.8rem">Tier</th>
+                <th style="padding:0.6rem 0.8rem;cursor:pointer" data-sort="points">Points ⤍</th>
+                <th style="padding:0.6rem 0.8rem">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="playersBody"></tbody>
+          </table>
+        </div>
+        <p class="muted small" style="margin-top:0.6rem">CSV import expects headers: rank,name,tier,points and tier values should use the CrystalPvP codes (e.g., LT5, HT5, LT4 ... HT1). JSON import expects an array of objects with fields rank, name, tier, points.</p>
+      </div>
+
+      <section style="margin-top:1.25rem;">
+        <h2 style="margin-top:0;font-size:1.05rem">Add / Edit Player</h2>
+        <form id="playerForm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.6rem;align-items:end">
+          <div>
+            <label class="muted" for="pRank">Rank</label>
+            <input id="pRank" type="number" min="1" placeholder="1" style="width:100%;padding:0.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--accent-text)">
+          </div>
+          <div>
+            <label class="muted" for="pName">Player name</label>
+            <input id="pName" type="text" placeholder="Player123" style="width:100%;padding:0.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--accent-text)">
+          </div>
+          <div>
+            <label class="muted" for="pTier">Tier</label>
+            <input id="pTier" type="text" placeholder="e.g., LT5" list="tiersDatalist" style="width:100%;padding:0.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--accent-text)">
+            <datalist id="tiersDatalist"></datalist>
+          </div>
+          <div>
+            <label class="muted" for="pPoints">Points (leave blank to use mapping)</label>
+            <input id="pPoints" type="number" min="0" placeholder="" style="width:100%;padding:0.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--accent-text)">
+          </div>
+
+          <div style="grid-column:1 / -1;display:flex;gap:0.6rem">
+            <button id="saveBtn" class="btn primary" type="submit">Save</button>
+            <button id="cancelEdit" class="btn" type="button">Cancel</button>
+          </div>
+        </form>
+      </section>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="yearPlayers"></span> MCTIERS — Minecraft PvP community</small>
+    </div>
+  </footer>
+
+  <script src="players.js"></script>
+</body>
+</html>

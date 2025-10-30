@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LightTiers — Home</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <!-- Replace with your logo image -->
+        <img src="logo.png" alt="MCTIERS logo" class="logo" />
+        <span class="brand-text">LightTiers</span>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="tiers.html" class="nav-link">Tiers</a>
+        <a href="https://mctiers.com/rankings/overall" class="nav-link" target="_blank" rel="noopener">Rankings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">Welcome to LightTiers</h1>
+        <p class="hero-sub">A Minecraft PvP community. Competitive, fun, and built for PvP.</p>
+        <div class="hero-cta">
+          <a href="tiers.html" class="btn primary">See Tiers</a>
+          <a href="#server-status" class="btn">Server Status</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="server-status" class="server-section">
+      <div class="container">
+        <h2 class="section-title">Server Status</h2>
+        <p class="muted">Live status for the main PvP server (edit the IP in assets/app.js)</p>
+
+        <div class="server-card" id="serverCard">
+          <img src="logo.png" alt="" class="server-img" />
+          <div class="server-info">
+            <h3 id="srv-name" class="server-name">Loading...</h3>
+            <p id="srv-motd" class="muted">—</p>
+            <p>
+              Status: <strong id="srv-online">—</strong>
+              • Players: <span id="srv-players">—</span>
+            </p>
+            <p><a id="srv-connect" href="#" class="mono">Connect: lightvanilla.qzz.io</a></p>
+          </div>
+        </div>
+
+        <p class="muted small">If the status doesn't show, ensure the server IP:port is correct and that the API (or your server) allows queries.</p>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <p>Want a public page for your leaderboard or rankings? We link to the community rankings here.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="year"></span> LightTiers — Minecraft PvP community</small>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

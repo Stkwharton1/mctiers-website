@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MCTIERS — Players (View only)</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* small adjustments to ensure view-only layout looks clean */
+    .admin-only { display: none !important; } /* hide leftover admin elements if present */
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img src="logo.png" alt="MCTIERS logo" class="logo" />
+        <span class="brand-text">MCTIERS</span>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="tiers.html" class="nav-link">Tiers</a>
+        <a href="players-view.html" class="nav-link">Players (View)</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container">
+      <h1 class="section-title">Players & Tiers — Read‑only</h1>
+      <p class="muted">This page is view-only: it shows the same data the editor uses but does not provide import, mapping edits, or add/edit controls.</p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;margin:0.75rem 0;">
+        <input id="searchInput" type="search" placeholder="Search by name, tier or points…" style="flex:1;min-width:180px;padding:0.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--accent-text)">
+        <select id="tierFilter" aria-label="Filter by tier" style="padding:0.5rem;border-radius:8px;background:transparent;color:var(--accent-text);border:1px solid rgba(255,255,255,0.03)">
+          <option value="">All tiers</option>
+        </select>
+
+        <button id="exportBtn" class="btn">Export JSON</button>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <div style="overflow:auto;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:var(--card);padding:0.5rem;">
+          <table id="playersTable" style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr style="text-align:left">
+                <th style="padding:0.6rem 0.8rem;cursor:pointer" data-sort="rank">Rank ⤍</th>
+                <th style="padding:0.6rem 0.8rem">Player</th>
+                <th style="padding:0.6rem 0.8rem">Tier</th>
+                <th style="padding:0.6rem 0.8rem;cursor:pointer" data-sort="points">Points ⤍</th>
+              </tr>
+            </thead>
+            <tbody id="playersBody"></tbody>
+          </table>
+        </div>
+        <p class="muted small" style="margin-top:0.6rem">This view reads the same stored data used by the editable Players page (localStorage). Edits made in Players (Edit) will appear here automatically.</p>
+      </div>
+
+      <section style="margin-top:1.25rem;">
+        <h2 style="margin-top:0;font-size:1.05rem">Tier → Points (current)</h2>
+        <p class="muted small">Read-only preview of the configured tier → points mapping.</p>
+        <div id="mappingPreview" style="margin-top:0.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:0.5rem"></div>
+      </section>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>© <span id="yearView"></span> MCTIERS — Minecraft PvP community</small>
+    </div>
+  </footer>
+
+  <script src="players-view.js"></script>
+</body>
+</html>
